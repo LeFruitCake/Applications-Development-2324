@@ -7,6 +7,7 @@ import Dashboard from './Pages/Dashboard';
 import Page404 from './Pages/Page404';
 import Home from './Pages/Home';
 import CompanyProfile from './Pages/CompanyProfile';
+import Login from './Pages/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,7 +38,10 @@ root.render(
         />
 
 
-        <Route>
+        <Route
+          element={<Login/>}
+          path='/login'
+        >
 
         </Route>
 

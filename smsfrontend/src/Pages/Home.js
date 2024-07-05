@@ -10,13 +10,13 @@ const Home = () => {
         <div className='homeMainLayout'>
             {/* Search Bar */}
             <Grid container mt={5} >
-                <Grid item xs={12} md={6} sx={{justifyContent:'center', display:'flex'}}>
+                <Grid item xs={12} md={5} sx={{justifyContent:'center', display:'flex'}}>
                     <Typography variant='h4' fontWeight={'bold'}>List Of Startups</Typography>
                 </Grid>
-                <Grid item xs={12} md={6} sx={{justifyContent:'center', display:'flex'}}>
+                <Grid item xs={12} md={7} sx={{justifyContent:'center', display:'flex'}}>
                     <OutlinedInput
                         placeholder='Search'
-                        sx={{backgroundColor:'white', width:'50%'}}
+                        sx={{backgroundColor:'white', width:'60%'}}
                         endAdornment={
                             <InputAdornment position='end'>
                                 <IconButton>
