@@ -1,11 +1,26 @@
-import { AppBar, Box, Typography } from '@mui/material';
-import React from 'react';
+import { AppBar, Box, Button, Divider, IconButton, Popover, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import WilLogo from '../static/images/WILLogo.png'
 import ProfileAvatar from './ProfileAvatar';
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
 
+    const navigate = useNavigate();
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl)
+    const profileClickHandler = (event)=>{
+        setAnchorEl(event.target);
+    }
+    const profileClickHandlerExit = ()=>{
+        setAnchorEl(null);
+    }
+
+    const logoutHandler = ()=>{
+        navigate('/login');
+    }
     
     
     return (
@@ -34,7 +49,38 @@ const Navbar = () => {
                                 19-2605-198
                             </Typography >
                         </Box>
-                        <ProfileAvatar size="80px"/>
+                        <IconButton onClick={profileClickHandler}>
+                            <ProfileAvatar size="80px"/>
+                        </IconButton>
+                        <Popover
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={profileClickHandlerExit}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            >
+                            <Box sx={{width:'350px'}}>
+                                Test
+                            </Box>
+                            <Divider sx={{margin:'10px'}}/>
+                            <Button variant='contained' sx={{
+                                backgroundColor:'black',
+                                color:'rgb(253,204,3)',
+                                width:'100%',
+                                ':hover':{
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                }
+                                
+                                }}
+                                onClick={logoutHandler}
+                                >Logout</Button>
+                        </Popover>
                     </Box>
                 </Box>
                 

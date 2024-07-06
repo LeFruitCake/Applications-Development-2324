@@ -8,6 +8,7 @@ import Page404 from './Pages/Page404';
 import Home from './Pages/Home';
 import CompanyProfile from './Pages/CompanyProfile';
 import Login from './Pages/Login';
+import Register from './Pages/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -41,6 +42,13 @@ root.render(
         <Route
           element={<Login/>}
           path='/login'
+        >
+
+        </Route>
+
+        <Route
+          element={<Register/>}
+          path='/register'
         >
 
         </Route>

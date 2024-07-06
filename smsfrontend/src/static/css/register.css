@@ -1,0 +1,73 @@
+@keyframes smallLogoAnimation{
+    0%{
+        opacity: 0.5;
+        margin: 0%;
+    }
+    100%{
+        margin-bottom: 10%;
+        opacity: 1;
+    }
+}
+
+
+#registerContainer{
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+}
+
+#bgPhoto{
+    /* object-fit: cover; */
+    height: 100vh;
+    width: 75vw;
+    min-width: 800px;
+    position: fixed;
+    right: 0;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+
+.registerBox{
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    width: 50vw;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.smallLogoOdd{
+    height: 80px;
+    width: 80px;
+    margin: 10px;
+    margin-bottom: 10%;
+    border-radius: 10px;
+    animation: smallLogoAnimation 0.5s linear;
+}
+
+.smallLogoEven{
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+}
+.Box2{
+    display: flex;
+    position:relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 20px;
+    justify-content: center;
+}
+
+.textField{
+    background-color: white;
+    width: 70%;
+    border-radius: 5px;
+}

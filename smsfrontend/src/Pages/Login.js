@@ -1,8 +1,14 @@
 import React from 'react';
 import '../static/css/Login.css';
 import { Box, Button, Divider, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    const handleLogin = ()=>{
+        navigate("/home");
+    }
     return (
         <div className='loginPage'>
             <img src='/HCLeft.png' alt='HCLeft' id='HCLeft' className='HC'/>
@@ -17,6 +23,7 @@ const Login = () => {
                     <Typography sx={{fontFamily:'poppins', color:'white', marginTop:'10px'}}>Password</Typography>
                     <input type='password' className='loginTextField'/>
                     <Button 
+                        onClick={handleLogin}
                         size='large'
                         variant='contained'
                         sx={{
@@ -54,6 +61,7 @@ const Login = () => {
                             boxShadow: '0px 0px 10px rgba(0,0,0,0.5)', // add a box shadow on hover
                             },
                         }}
+                        onClick={()=>{navigate('/register')}}
                         >
                             Register
                     </Button>
