@@ -1,0 +1,9 @@
+
+#companyProfileLayout{
+    min-height: 100vh;
+    background-image:url('../images/image.png');
+}
+
+#dashboardContainer{
+    width: 100%;
+}
