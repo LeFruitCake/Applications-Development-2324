@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../static/css/Home.css';
-import { Grid, IconButton, InputAdornment, OutlinedInput, Typography } from '@mui/material';
+import { Box, Grid, IconButton, InputAdornment, OutlinedInput, Typography } from '@mui/material';
 import CompanyCard from '../Components/CompanyCard';
 import SearchIcon from '@mui/icons-material/Search';
 
 const Home = () => {
+
+    const [companies,setCompanies] = useState([
+        {   'companyName':'Vicente Sotto Memorial Medical Center',
+            'description':'Hospital',
+            'logo':'/ccmc.png'
+        },
+        {   'companyName':'Cebu Normal University',
+            'description':'Skwelahan',
+            'logo':'/cnu.png'
+        },
+        {   'companyName':'Codechum',
+            'description':'companya',
+            'logo':'/codechum.png'
+        },
+        {   'companyName':'Layered',
+            'description':'Test lamang',
+            'logo':'/layered.png'
+        },
+        {   'companyName':'Vicente Sotto Memorial Medical Center',
+            'description':'Test lamang',
+            'logo':'/ccmc.png'
+        },
+        {   'companyName':'Cebu Institute of Technology - University',
+            'description':'Test lamang',
+            'logo':'/images.png'
+        },
+        {   'companyName':'Redfox',
+            'description':'Test lamang',
+            'logo':'/redfox.png'
+        },
+        {   'companyName':'Vista',
+            'description':'Test lamang',
+            'logo':'/vista.png'
+        }
+    ]);
     
     return (
         <div className='homeMainLayout'>
@@ -29,18 +64,12 @@ const Home = () => {
             </Grid>
 
             {/* The list of companies */}
-            <Grid container gap={1} style={{justifyContent:'center'}} mt={5}>
-
-                <Grid item xs={12} md={3.3}>
-                    <CompanyCard company={{name:'CodeChum',src:'/codechum.png'}}/>
-                </Grid>
-                <Grid item xs={12} md={3.3}>
-                    <CompanyCard company={{name:'Vicente Sotto Memorial',src:'/ccmc.png'}}/>
-                </Grid>
-                <Grid item xs={12} md={3.3}>
-                    <CompanyCard company={{name:'Cebu Normal University',src:'/cnu.png'}}/>
-                </Grid>
-
+            <Grid container rowGap={10} sx={{paddingLeft:'calc(100vw*0.075)',paddingRight:'calc(100vw*0.01)'}} mt={5}>
+                {companies.map((company)=>(
+                    <Grid  item xs={12} md={3.7}>
+                        <CompanyCard company={{name:company.companyName,src:company.logo}}/>
+                    </Grid>
+                ))}
             </Grid>
             <img src='/bulb.png' alt='bulb' style={{width:'300px',bottom:0,left:0,position:'fixed',zIndex:0}}/>
         </div>
