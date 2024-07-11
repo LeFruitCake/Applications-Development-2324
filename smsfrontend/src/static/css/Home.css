@@ -1,4 +1,21 @@
+@keyframes cardAnimation{
+    0%{
+        margin-top: -1.5%;
+        opacity: 0;
+        z-index: 1;
+    }
 
+
+    100%{
+        z-index: 1;
+        margin: 0;
+        opacity: 1;
+    }
+}
+
+.companyCardContainer{
+    animation: cardAnimation 0.5s linear;
+}
 
 
 .homeMainLayout{
@@ -7,3 +24,6 @@
     font-family: poppins;
     padding: 2.5%;
 }
+
+
+

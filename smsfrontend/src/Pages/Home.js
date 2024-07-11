@@ -44,11 +44,11 @@ const Home = () => {
     return (
         <div className='homeMainLayout'>
             {/* Search Bar */}
-            <Grid container mt={5} >
-                <Grid item xs={12} md={5} sx={{justifyContent:'center', display:'flex'}}>
+            <Grid container mt={5}  width={'86vw'} margin={'0 auto'} >
+                <Grid item xs={12} display={'flex'} md={5} justifyContent={{xs:'center',md:'start'}}>
                     <Typography variant='h4' fontWeight={'bold'}>List Of Startups</Typography>
                 </Grid>
-                <Grid item xs={12} md={7} sx={{justifyContent:'center', display:'flex'}}>
+                <Grid item xs={12} md={7} display={'flex'} justifyContent={{xs:'center',md:'end'}}>
                     <OutlinedInput
                         placeholder='Search'
                         sx={{backgroundColor:'white', width:'60%'}}
@@ -64,10 +64,10 @@ const Home = () => {
             </Grid>
 
             {/* The list of companies */}
-            <Grid container rowGap={10} sx={{paddingLeft:'calc(100vw*0.075)',paddingRight:'calc(100vw*0.01)'}} mt={5}>
+            <Grid container rowGap={10} mt={5}>
                 {companies.map((company)=>(
-                    <Grid  item xs={12} md={3.7}>
-                        <CompanyCard company={{name:company.companyName,src:company.logo}}/>
+                    <Grid className='companyCardContainer' item xs={12} md={4} sx={{display:'flex', justifyContent:'center',alignItems:'center'}}>
+                            <CompanyCard company={{name:company.companyName,src:company.logo}}/>
                     </Grid>
                 ))}
             </Grid>

@@ -1,24 +1,24 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import {Link} from 'react-router-dom';
+import '../static/css/CompanyCard.css'
+
+
 
 const CompanyCard = ({company}) => {
     return (
-        <div>
-            <Box sx={{width:{xs:'50%',md:'70%'},position:'relative',zIndex:1, borderRadius:'10px',backgroundColor:'rgb(253,204,3)', paddingTop:'10%',paddingBottom:'10%', maxHeight:'200px',overflow:'hidden',paddingLeft:'10px',paddingRight:'10px'}}>
-                <Link
-                    style={{display:'flex',flexDirection:'column',alignItems:'center', margin:'0 auto',textDecoration:'none', color:'inherit'}}
-                    to={{
-                        pathname:'/companyProfile',
-                    }}
-                    state={{company}}
-                >
-                    <img style={{height:'150px', width:'150px'}} src={company.src} alt='logo'/>
-                    <h3 style={{fontFamily:'poppins', wordWrap:'break-word', maxWidth:'100%',textAlign:'center'}}>{company.name}</h3>
-                </Link>
-                </Box>
-            
-        </div>
+        <Box className="companyCard" sx={{width:{xs:'50%',md:'70%'},positio:'relative',zIndex:1, borderRadius:'10px',backgroundColor:'rgb(253,204,3)', paddingTop:'10%',paddingBottom:'10%', maxHeight:'200px',overflow:'hidden',paddingLeft:'10px',paddingRight:'10px'}}>
+            <Link
+                style={{display:'flex',flexDirection:'column',alignItems:'center', margin:'0 auto',textDecoration:'none', color:'inherit'}}
+                to={{
+                    pathname:'/companyProfile',
+                }}
+                state={{company}}
+            >
+                <img style={{height:'150px', width:'150px'}} src={company.src} alt='logo'/>
+                <h3 style={{fontFamily:'poppins', wordWrap:'break-word', maxWidth:'100%',textAlign:'center'}}>{company.name}</h3>
+            </Link>
+        </Box>
     );
 }
 
