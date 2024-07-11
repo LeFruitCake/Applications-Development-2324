@@ -4,6 +4,28 @@
     background-image:url('../images/image.png');
 }
 
-#dashboardContainer{
-    width: 100%;
+#contentContainer{
+    width: 70vw;
+    border-radius: 5px;
+    padding: 1%;
+    margin: 0 auto;
+    background-color: rgb(253, 204, 3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0,0.3);
+}
+
+.companyLogo{
+    height: 250px;
+    border-radius: 50%;
+}
+
+#companyName {
+    font-size: clamp(1rem, 4vw, 2rem);
+    font-weight: bold;
+    font-family: poppins;
+}
+
+#companyDesc{
+    font-family: poppins;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    
 }

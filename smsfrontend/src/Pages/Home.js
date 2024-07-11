@@ -36,7 +36,7 @@ const Home = () => {
             'logo':'/redfox.png'
         },
         {   'companyName':'Vista',
-            'description':'Test lamang',
+            'description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id risus sodales, eleifend felis quis, fringilla lorem. Nam quis bibendum elit. Vivamus nisl purus, feugiat non iaculis et, tristique nec justo. Nulla tortor magna, luctus et ante non, mattis venenatis neque. Nullam a erat eget enim volutpat rutrum. Pellentesque hendrerit ipsum sed est laoreet, nec placerat odio viverra. Ut a dictum turpis. Nunc vitae purus maximus, convallis ante eget, bibendum turpis. Maecenas in massa malesuada, aliquam felis eu, cursus nunc. Aliquam at faucibus quam, id egestas libero. Etiam vitae augue porttitor, sollicitudin neque et, convallis nisi. Suspendisse quis lectus magna. Fusce vestibulum, diam a tempor mollis, lorem tellus iaculis sapien, in pretium lorem turpis dictum nunc. Integer vehicula, orci a vehicula pellentesque, lorem mi suscipit augue, eget sagittis justo risus vel est',
             'logo':'/vista.png'
         }
     ]);
@@ -67,7 +67,7 @@ const Home = () => {
             <Grid container rowGap={10} mt={5}>
                 {companies.map((company)=>(
                     <Grid className='companyCardContainer' item xs={12} md={4} sx={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                            <CompanyCard company={{name:company.companyName,src:company.logo}}/>
+                            <CompanyCard company={{company}}/>
                     </Grid>
                 ))}
             </Grid>

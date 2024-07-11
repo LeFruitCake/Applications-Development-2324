@@ -15,8 +15,8 @@ const CompanyCard = ({company}) => {
                 }}
                 state={{company}}
             >
-                <img style={{height:'150px', width:'150px'}} src={company.src} alt='logo'/>
-                <h3 style={{fontFamily:'poppins', wordWrap:'break-word', maxWidth:'100%',textAlign:'center'}}>{company.name}</h3>
+                <img style={{height:'150px', width:'150px',borderRadius:'50%'}} src={company.company.logo} alt='logo'/>
+                <h3 style={{fontFamily:'poppins', wordWrap:'break-word', maxWidth:'100%',textAlign:'center'}}>{company.company.companyName}</h3>
             </Link>
         </Box>
     );
