@@ -9,6 +9,24 @@ const CompanyProfile = () => {
     const navigate = useNavigate()
     const company = location.state.company
 
+    const tasks = [
+        {   'title':'lorem ipsum',
+            'description':'test lang',
+            'progress':0,
+            'dueDate':new Date(),
+        },
+        {   'title':'Market Research',
+            'description':'test lang',
+            'progress':20,
+            'dueDate':new Date(),
+        },
+        {   'title':'Business Model',
+            'description':'test lang',
+            'progress':100,
+            'dueDate':new Date(),
+        },
+
+    ]
 
     const back2dashboardButtonHandler = ()=>{
         navigate('/home')
@@ -27,11 +45,17 @@ const CompanyProfile = () => {
                     <Grid item xs={12} md={5} sx={{display:'flex',justifyContent:'center', alignItems:'center'}}>
                         <img src={company.company.logo} alt='companyLogo' className='companyLogo'/>
                     </Grid>
-                    <Grid item xs={12} md={7} textAlign={{xs:'center',md:'start'}}>
+                    <Grid item xs={12} md={6.4} textAlign={{xs:'center',md:'start'}}>
                         <Box>
                             <Typography id="companyName" variant='h6'>{company.company.companyName}</Typography>
                             <Divider></Divider>
                             <Typography variant='caption' id="companyDesc">{company.company.description}</Typography>
+                        </Box>
+                    </Grid>
+                    
+                    <Grid item xs={12} >
+                        <Box className="tasksMainContainer">
+                            {console.log(tasks)}
                         </Box>
                     </Grid>
                 </Grid>

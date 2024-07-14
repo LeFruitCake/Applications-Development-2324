@@ -29,3 +29,9 @@
     font-size: clamp(0.8rem, 2vw, 1rem);
     
 }
+
+.tasksMainContainer{
+    margin: 0 auto;
+    width: 90%;
+    background-color: white;
+}
