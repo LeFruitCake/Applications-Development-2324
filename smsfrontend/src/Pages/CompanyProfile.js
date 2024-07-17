@@ -1,8 +1,9 @@
 import React from 'react';
 import '../static/css/CompanyProfile.css'
-import { Box, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, IconButton, Typography } from '@mui/material';
 import B2DashboardButton from '../Components/b2DashboardButton';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ProgressBar from '../Components/ProgressBar';
 
 const CompanyProfile = () => {
     const location = useLocation()
@@ -41,23 +42,51 @@ const CompanyProfile = () => {
                 
             </Box>
             <Box id="contentContainer">
-                <Grid container>
-                    <Grid item xs={12} md={5} sx={{display:'flex',justifyContent:'center', alignItems:'center'}}>
+                <Grid container sx={{display:'flex', justifyContent:'center'}}>
+                    <Grid item xs={12} md={4} sx={{display:'flex',justifyContent:'center', alignItems:'center'}}>
                         <img src={company.company.logo} alt='companyLogo' className='companyLogo'/>
                     </Grid>
-                    <Grid item xs={12} md={6.4} textAlign={{xs:'center',md:'start'}}>
+                    <Grid item xs={12} md={8} textAlign={{xs:'center',md:'start'}}>
                         <Box>
                             <Typography id="companyName" variant='h6'>{company.company.companyName}</Typography>
-                            <Divider></Divider>
+                            {/* <Divider></Divider> */}
                             <Typography variant='caption' id="companyDesc">{company.company.description}</Typography>
                         </Box>
                     </Grid>
-                    
-                    <Grid item xs={12} >
-                        <Box className="tasksMainContainer">
-                            {console.log(tasks)}
-                        </Box>
+                    <Grid item xs={10} md={10} paddingBottom={1} mt={3}>
+                        <Grid container>
+                            <Grid item xs={6} md={6} display={'flex'} justifyContent={'start'} alignItems={'center'}>
+                                <Typography id="activeTaskLabel" sx={{fontWeight:'bold'}}>Active Tasks</Typography>
+                            </Grid>
+                            <Grid item xs={6} md={6} sx={{display:'flex', justifyContent:'end'}}>
+                                <Button size='large' sx={{backgroundColor:'black',color:'rgb(253,204,3)',paddingLeft:'20px',paddingRight:'20px',fontWeight:'bold','&:hover':{backgroundColor:'rgba(0,0,0,0.8)'}}}>Load</Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
+                    <Grid item xs={12} md={10} sx={{backgroundColor:'white', borderRadius:'5px'}}>
+                        {tasks.map((task)=>(
+                            <Box sx={{borderBottom:'solid 1px silver', padding:'10px'}}>
+                                <Grid container>
+                                    <Grid item xs={12} md={6} >
+                                        <Box sx={{padding:'20px', display:'flex', flexDirection:'column', gap:'10px'}}>
+                                            <Typography variant='h5' sx={{fontWeight:'bold'}}>{task.title}</Typography>
+                                            <ProgressBar value={task.progress}/>
+                                            {task.progress === 0?
+                                                <Typography variant='caption' sx={{fontWeight:'bold'}}>No progress yet</Typography>
+                                            :
+                                                <Typography variant='caption' sx={{fontWeight:'bold'}}>{task.progress}% complete</Typography>
+                                            }
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography>{task.dueDate.toLocaleDateString()}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ))}
+                    </Grid>
+                    
+                    
                 </Grid>
             </Box>
         </div>

@@ -44,14 +44,14 @@ const Home = () => {
     return (
         <div className='homeMainLayout'>
             {/* Search Bar */}
-            <Grid container mt={5}  width={'86vw'} margin={'0 auto'} >
-                <Grid item xs={12} display={'flex'} md={5} justifyContent={{xs:'center',md:'start'}}>
+            <Grid container mt={5}  width={'86vw'} margin={'0 auto'}>
+                <Grid item xs={12} display={'flex'} md={5} justifyContent={{xs:'center',md:'start',zIndex:1}}>
                     <Typography variant='h4' fontWeight={'bold'}>List Of Startups</Typography>
                 </Grid>
                 <Grid item xs={12} md={7} display={'flex'} justifyContent={{xs:'center',md:'end'}}>
                     <OutlinedInput
                         placeholder='Search'
-                        sx={{backgroundColor:'white', width:'60%'}}
+                        sx={{backgroundColor:'white', width:'60%',zIndex:1}}
                         endAdornment={
                             <InputAdornment position='end'>
                                 <IconButton>

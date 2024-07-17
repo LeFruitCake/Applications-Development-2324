@@ -14,24 +14,29 @@
 }
 
 .companyLogo{
-    height: 250px;
+    height: 200px;
     border-radius: 50%;
 }
 
 #companyName {
-    font-size: clamp(1rem, 4vw, 2rem);
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
     font-weight: bold;
     font-family: poppins;
 }
 
 #companyDesc{
     font-family: poppins;
-    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(1rem, 3vw, 1.3rem);
     
 }
 
 .tasksMainContainer{
     margin: 0 auto;
-    width: 90%;
     background-color: white;
+    height: 150px;
+    border-bottom: solid 1px silver;
+}
+
+#activeTaskLabel{
+    font-size: clamp(1.3rem,3vw,2rem);
 }
