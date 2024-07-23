@@ -1,10 +1,11 @@
 import '../static/css/CompanyProfile.css'
-import { Box, Button, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
 import B2DashboardButton from '../Components/b2DashboardButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProgressBar from '../Components/ProgressBar';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CreateTaskModal from '../Components/CreateTaskModal';
+import EditTask from '../Components/EditTask';
+import DeleteTask from '../Components/DeleteTask';
 
 const CompanyProfile = () => {
     const location = useLocation()
@@ -62,14 +63,13 @@ const CompanyProfile = () => {
                                 <Typography id="activeTaskLabel" sx={{fontWeight:'bold'}}>Active Tasks</Typography>
                             </Grid>
                             <Grid item xs={6} md={6} sx={{display:'flex', justifyContent:'end'}}>
-                                <Button size='large' sx={{backgroundColor:'black',color:'rgb(253,204,3)',paddingLeft:'20px',paddingRight:'20px',fontWeight:'bold','&:hover':{backgroundColor:'rgba(0,0,0,0.8)'}}}>Load</Button>
-                                
+                                <CreateTaskModal/>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} md={10} sx={{backgroundColor:'white', borderRadius:'5px'}}>
-                        {tasks.map((task)=>(
-                            <Box sx={{borderBottom:'solid 1px silver', padding:'10px', '&:hover':{backgroundColor:'rgba(0,0,0,0.1)', '&:hover .dueDate':{display:'none'},'&:hover .actions':{display:'flex'}}}}>
+                        {tasks.map((task, key)=>(
+                            <Box key={key} sx={{borderBottom:'solid 1px silver', padding:'10px', '&:hover':{backgroundColor:'rgba(0,0,0,0.1)', '&:hover .dueDate':{display:'none'},'&:hover .actions':{display:'flex'}}}}>
                                 <Grid container>
                                     <Grid item xs={12} md={6} >
                                         <Box sx={{padding:'20px', display:'flex', flexDirection:'column', gap:'10px'}}>
@@ -85,12 +85,8 @@ const CompanyProfile = () => {
                                     <Grid item xs={12} md={6} sx={{display:'flex',justifyContent:'end',alignItems:'center'}}>
                                         <Typography className='dueDate' variant='h6' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(task.dueDate)}</Typography>
                                         <Stack direction={'row'} gap={1} className='actions' sx={{display:'none'}}>
-                                            <IconButton sx={{backgroundColor:'yellow', '&:hover':{backgroundColor:'rgba(253,204,3,1)'}}}>
-                                                <EditIcon></EditIcon>
-                                            </IconButton>
-                                            <IconButton sx={{backgroundColor:'yellow', '&:hover':{backgroundColor:'rgba(253,204,3,1)'}}}>
-                                                <DeleteIcon color='black'></DeleteIcon>
-                                            </IconButton>
+                                            <EditTask task={task}/>
+                                            <DeleteTask/>
                                         </Stack>
                                     </Grid>
                                 </Grid>

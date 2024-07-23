@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Divider, IconButton, Popover, Typography } from '@mui/material';
+import { AppBar, Box, Button, Divider, IconButton, Popover, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import WilLogo from '../static/images/WILLogo.png'
 import ProfileAvatar from './ProfileAvatar';
@@ -69,17 +69,29 @@ const Navbar = () => {
                                 Test
                             </Box>
                             <Divider sx={{margin:'10px'}}/>
-                            <Button variant='contained' sx={{
-                                backgroundColor:'black',
-                                color:'rgb(253,204,3)',
-                                width:'100%',
-                                ':hover':{
-                                    backgroundColor: 'rgba(0,0,0,0.8)',
-                                }
-                                
-                                }}
-                                onClick={logoutHandler}
-                                >Logout</Button>
+                            <Stack direction={"column"} gap={1} margin={1}>
+                                <Button variant='contained' sx={{
+                                    backgroundColor:'black',
+                                    color:'rgb(253,204,3)',
+                                    width:'100%',
+                                    ':hover':{
+                                        backgroundColor: 'rgba(0,0,0,0.8)',
+                                    }
+                                    
+                                    }}
+                                    >Admin</Button>
+                                <Button variant='contained' sx={{
+                                    backgroundColor:'black',
+                                    color:'rgb(253,204,3)',
+                                    width:'100%',
+                                    ':hover':{
+                                        backgroundColor: 'rgba(0,0,0,0.8)',
+                                    }
+                                    
+                                    }}
+                                    onClick={logoutHandler}
+                                    >Logout</Button>
+                            </Stack>
                         </Popover>
                     </Box>
                 </Box>

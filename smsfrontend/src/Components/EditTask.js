@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -22,7 +23,10 @@ const style = {
   overflow:'auto',
 };
 
-export default function CreateTaskModal() {
+
+
+const EditTask = ({task}) => {
+
     const [visible,setVisible] = React.useState(false)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -48,11 +52,14 @@ export default function CreateTaskModal() {
         temp.splice(key,1);
         setDeliverables([...temp]);
     }
-
+    console.log(task)
     return (
-        <div>
-        <Button onClick={handleOpen} size='large' sx={{backgroundColor:'black',color:'rgb(253,204,3)',paddingLeft:'20px',paddingRight:'20px',fontWeight:'bold','&:hover':{backgroundColor:'rgba(0,0,0,0.8)'}}}>Load</Button>
-        <Modal
+        
+        <>
+            <IconButton onClick={handleOpen} sx={{backgroundColor:'yellow', '&:hover':{backgroundColor:'rgba(253,204,3,1)'}}}>
+                <EditIcon></EditIcon>
+            </IconButton>
+            <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -64,9 +71,9 @@ export default function CreateTaskModal() {
             </Typography>
             <form >
                 <Stack direction={'column'} gap={2}>
-                    <TextField className='inputTextField' placeholder='Task Title'></TextField>
-                    <TextField className='inputTextField' rows={4} multiline placeholder='Instructions'></TextField>
-                    <TextField className='inputTextField' placeholder='Due Date' type='date'></TextField>
+                    <TextField className='inputTextField' placeholder='Task Title' value={task.title}></TextField>
+                    <TextField className='inputTextField' rows={4} multiline placeholder='Instructions' value={task.description}></TextField>
+                    <TextField className='inputTextField' placeholder='Due Date' type='date' value={task.dueDate}></TextField>
                     <Box sx={{display:'flex',justifyContent:'space-between'}}>
                         <Typography>Deliverables</Typography>
                         <IconButton onClick={addDeliverableHandler}><AddCircleIcon/></IconButton>
@@ -94,6 +101,8 @@ export default function CreateTaskModal() {
             </form>
             </Box>
         </Modal>
-        </div>
-  );
+        </>
+    );
 }
+
+export default EditTask;
