@@ -21,6 +21,11 @@ const Navbar = () => {
     const logoutHandler = ()=>{
         navigate('/login');
     }
+
+    const adminHandler = ()=>{
+        profileClickHandlerExit();
+        navigate('/admin')
+    }
     
     
     return (
@@ -79,6 +84,7 @@ const Navbar = () => {
                                     }
                                     
                                     }}
+                                    onClick={adminHandler}
                                     >Admin</Button>
                                 <Button variant='contained' sx={{
                                     backgroundColor:'black',

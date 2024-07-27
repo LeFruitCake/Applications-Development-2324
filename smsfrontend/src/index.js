@@ -9,6 +9,7 @@ import Home from './Pages/Home';
 import CompanyProfile from './Pages/CompanyProfile';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import Admin from './Pages/Admin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,11 @@ root.render(
           <Route
             path='home'
             element={<Home/>}
+          />
+
+          <Route
+            element={<Admin/>}
+            path='admin'
           />
 
           <Route
@@ -50,7 +56,7 @@ root.render(
           element={<Register/>}
           path='/register'
         >
-
+        
         </Route>
 
 
