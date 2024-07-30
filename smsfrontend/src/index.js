@@ -10,6 +10,7 @@ import CompanyProfile from './Pages/CompanyProfile';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Admin from './Pages/Admin';
+import TaskPage from './Pages/TaskPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -36,6 +37,9 @@ root.render(
             path='companyProfile'
             element={<CompanyProfile/>}
           />
+          <Route
+            element={<TaskPage/>}
+            path='/taskpage'/>
         </Route>
 
 
@@ -58,6 +62,8 @@ root.render(
         >
         
         </Route>
+
+        
 
 
         <Route

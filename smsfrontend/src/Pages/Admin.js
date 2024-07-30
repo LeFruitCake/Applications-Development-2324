@@ -23,7 +23,6 @@ const Admin = () => {
     const back2dashboardButtonHandler = ()=>{
         navigate('/home')
     }
-    console.log(companies)
     return (
         <Grid container>
             <Grid item sm={12} m={2}>

@@ -19,6 +19,7 @@ const Navbar = () => {
     }
 
     const logoutHandler = ()=>{
+        localStorage.setItem("loginStatus",false);
         navigate('/login');
     }
 

@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../static/css/Login.css';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
-
     const navigate = useNavigate();
+
+    const [flag,setFlag] = useState(false);
+
+    useEffect(() => {
+        console.log(localStorage.getItem("loginStatus"))
+        if(JSON.parse(localStorage.getItem("loginStatus")) === true){
+            navigate("/home");
+        }
+    }, [navigate]);
+
     const handleLogin = ()=>{
-        navigate("/home");
+        axios.post('http://localhost:8080/login',{
+            "username":document.getElementById("usernameTF").value,
+            "password":document.getElementById("passwordTF").value
+        })
+        .then(response => {
+            if(response.status === 200){
+                console.log(response)
+                localStorage.setItem("loginStatus",true);
+                navigate("/home")
+            }else{
+                setFlag(true);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            setFlag(true);
+        });
     }
+
+    const retractError = ()=>{
+        setFlag(false);
+    }
+
     return (
         <div className='loginPage'>
             <img src='/HCLeft.png' alt='HCLeft' id='HCLeft' className='HC'/>
@@ -19,9 +50,10 @@ const Login = () => {
                     <Typography sx={{fontFamily:'poppins', color:'white'}}>Sign in</Typography>
                     <Divider sx={{backgroundColor:'white', marginTop:1}}/>
                     <Typography sx={{fontFamily:'poppins', color:'white', marginTop:'10px'}}>Username</Typography>
-                    <input type='text' className='loginTextField'/>
+                    <TextField onClick={retractError} error={flag} type='text' id='usernameTF' className='loginTextField'/>
                     <Typography sx={{fontFamily:'poppins', color:'white', marginTop:'10px'}}>Password</Typography>
-                    <input type='password' className='loginTextField'/>
+                    <TextField onClick={retractError} error={flag} type='password' id='passwordTF' className='loginTextField'/>
+                    <Typography sx={{display:flag?'block':'none'}} variant='caption' color="error">Invalid username or password.</Typography>
                     <Button 
                         onClick={handleLogin}
                         size='large'

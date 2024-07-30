@@ -1,13 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../static/css/register.css';
 import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
+
+    const [flag,setFlag] = useState(false);
+    const [message,setMessage] = useState("");
+    
     const navigate = useNavigate();
+
+    const registerUser = ()=>{
+        const username = document.getElementById('usernameTF').value;
+        const firstname = document.getElementById('firstnameTF').value;
+        const lastname = document.getElementById("lastnameTF").value;
+        const password = document.getElementById('passwordTF').value;
+        const password2 = document.getElementById('password2TF').value;
+        if (!username || !firstname || !lastname || !password || !password2){
+            setFlag(true);
+            setMessage("Please fill out all fields.")
+        }else{
+
+            if (password === password2){
+                axios.post('http://localhost:8080/register',{
+                    "username":username,
+                    "firstname":firstname,
+                    "lastname":lastname,
+                    "password":password
+                })
+                .then(response => {
+                    if(response.status === 200){
+                        navigate("/login")
+                    }
+                })
+                .catch(error => {
+                    setFlag(true);
+                    console.error(error);
+                });
+            }else{
+                setFlag(true);
+                setMessage("Passwords do not match.")
+            }
+            
+        }
+        
+    }
 
     const cancelButtonHandler = ()=>{
         navigate('/login');
+    }
+
+    const retractError = ()=>{
+        setFlag(false);
     }
 
     return (
@@ -28,12 +73,13 @@ const Register = () => {
             </Box>
             <Box className="Box2">
                 <Typography variant='h3' sx={{color:'rgb(253,204,3)'}}>Registration Form</Typography>
-                <TextField variant='filled' className='textField' label="School ID"/>
-                <TextField variant='filled' className='textField' label="First Name"/>
-                <TextField variant='filled' className='textField' label="Surname"/>
-                <TextField variant='filled' className='textField' label="Password"/>
-                <TextField variant='filled' className='textField' label="Confirm Password"/>
-                <Button size='large' variant='contained' sx={{backgroundColor:'rgb(253,204,3)',':hover':{backgroundColor:'rgba(253,204,3,0.7)'}, color:'black', fontWeight:'bold'}}>Register</Button>
+                <TextField onClick={retractError} error={flag} id='usernameTF' variant='filled' className='textField' label="School ID"/>
+                <TextField onClick={retractError} error={flag} id='firstnameTF' variant='filled' className='textField' label="First Name"/>
+                <TextField onClick={retractError} error={flag} id='lastnameTF' variant='filled' className='textField' label="Surname"/>
+                <TextField onClick={retractError} error={flag} type='password' id='passwordTF' variant='filled' className='textField' label="Password"/>
+                <TextField onClick={retractError} error={flag} type='password' id='password2TF' variant='filled' className='textField' label="Confirm Password"/>
+                <Typography sx={{display:flag?'block':'none', fontSize:'15px'}} variant='caption' color="error">{message}</Typography>
+                <Button onClick={registerUser} size='large' variant='contained' sx={{backgroundColor:'rgb(253,204,3)',':hover':{backgroundColor:'rgba(253,204,3,0.7)'}, color:'black', fontWeight:'bold'}}>Register</Button>
                 <Divider sx={{width:'80%', backgroundColor:'white', height:'2px'}}/>
                 <Typography sx={{color:'white'}} variant='caption'>Already have an account?</Typography>
                 <Button onClick={cancelButtonHandler} variant='contained' size='medium' sx={{backgroundColor:'black', color:'rgb(253,204,3)',':hover':{backgroundColor:'rgba(10,10,10,0.5)'}}}>Cancel</Button>

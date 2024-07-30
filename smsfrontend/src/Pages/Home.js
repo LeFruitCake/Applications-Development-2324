@@ -2,10 +2,18 @@ import '../static/css/Home.css';
 import { Grid, IconButton, InputAdornment, OutlinedInput, Typography } from '@mui/material';
 import CompanyCard from '../Components/CompanyCard';
 import SearchIcon from '@mui/icons-material/Search';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { companyContext } from './Dashboard';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log(localStorage.getItem("loginStatus"))
+        if(JSON.parse(localStorage.getItem("loginStatus")) === false){
+            navigate("/login");
+        }
+    }, []);
     const {companies, setCompanies} = useContext(companyContext);
     
     return (
