@@ -10,7 +10,7 @@ const Home = () => {
     const navigate = useNavigate();
     useEffect(() => {
         console.log(localStorage.getItem("loginStatus"))
-        if(JSON.parse(localStorage.getItem("loginStatus")) === false){
+        if(!JSON.parse(localStorage.getItem("loginStatus"))){
             navigate("/login");
         }
     }, []);
@@ -40,8 +40,8 @@ const Home = () => {
 
             {/* The list of companies */}
             <Grid container rowGap={10} mt={5}>
-                {companies.map((company)=>(
-                    <Grid className='companyCardContainer' item xs={12} md={4} sx={{display:'flex', justifyContent:'center',alignItems:'center'}}>
+                {companies.map((company, key)=>(
+                    <Grid key={key} className='companyCardContainer' item xs={12} md={4} sx={{display:'flex', justifyContent:'center',alignItems:'center'}}>
                             <CompanyCard company={{company}}/>
                     </Grid>
                 ))}

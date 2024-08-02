@@ -2,13 +2,17 @@ import React, { createContext, useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import {  Outlet, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../ContextProvider/UserContext';
 
 const companyContext = createContext();
+
 const Dashboard = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
     const [companies,setCompanies] = useState([]);
+    const [user, setUser] = useState([]);
+    
 
     useEffect(() => {
         if(location.pathname === '/'){
@@ -21,13 +25,27 @@ const Dashboard = () => {
         .catch(e=>{
             console.log(e);
         })
+        axios.get(`http://localhost:8080/User/getUser`,{
+            params:{
+                id:localStorage.getItem("userID"),
+            }
+        })
+        .then(response=>{
+            console.log(response)
+            setUser(response.data);
+        })
+        .catch(e=>{
+            console.log(e);
+        })
     }, [navigate, location]);
     return (
         <div style={{height:'100vh',display:'flex',flexFlow:'column',flex:'1 1 auto'}}>
-            <companyContext.Provider value={{companies, setCompanies}}>
-                <Navbar/>
-                <Outlet/>
-            </companyContext.Provider>
+            <UserContext.Provider value={{user}}>
+                <companyContext.Provider value={{companies, setCompanies}}>
+                    <Navbar/>
+                    <Outlet/>
+                </companyContext.Provider>
+            </UserContext.Provider>
         </div>
     );
 

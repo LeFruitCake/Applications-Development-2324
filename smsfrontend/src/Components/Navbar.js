@@ -1,14 +1,15 @@
 import { AppBar, Box, Button, Divider, IconButton, Popover, Stack, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import WilLogo from '../static/images/WILLogo.png'
 import ProfileAvatar from './ProfileAvatar';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../ContextProvider/UserContext';
 
 
 const Navbar = () => {
 
+    const {user} = useContext(UserContext);
     const navigate = useNavigate();
-
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
     const profileClickHandler = (event)=>{
@@ -19,7 +20,7 @@ const Navbar = () => {
     }
 
     const logoutHandler = ()=>{
-        localStorage.setItem("loginStatus",false);
+        localStorage.clear();
         navigate('/login');
     }
 
@@ -27,7 +28,6 @@ const Navbar = () => {
         profileClickHandlerExit();
         navigate('/admin')
     }
-    
     
     return (
         <div style={{position:'relative',zIndex:1}}>
@@ -49,10 +49,10 @@ const Navbar = () => {
                     }}>
                         <Box sx={{textAlign:'right', display:'flex',flexDirection:'column'}}>
                             <Typography variant='h5' sx={{display:{xs:'none',md:'inline'}, fontFamily:'poppins'}} >
-                                Jandel Macabecha
+                                {user.firstname} {user.lastname}
                             </Typography >
                             <Typography variant='h6' sx={{display:{xs:'none',md:'inline'}, color:'rgb(253,204,3)',fontFamily:'poppins'}} >
-                                19-2605-198
+                                {user.username}
                             </Typography >
                         </Box>
                         <IconButton onClick={profileClickHandler}>
@@ -76,17 +76,19 @@ const Navbar = () => {
                             </Box>
                             <Divider sx={{margin:'10px'}}/>
                             <Stack direction={"column"} gap={1} margin={1}>
-                                <Button variant='contained' sx={{
-                                    backgroundColor:'black',
-                                    color:'rgb(253,204,3)',
-                                    width:'100%',
-                                    ':hover':{
-                                        backgroundColor: 'rgba(0,0,0,0.8)',
-                                    }
-                                    
-                                    }}
-                                    onClick={adminHandler}
-                                    >Admin</Button>
+                            <Button variant='contained' sx={{
+                            display: user.accessType === "Admin" || user.accessType === "Head Admin"? "block" : "none",
+                            backgroundColor: 'black',
+                            color: 'rgb(253,204,3)',
+                            width: '100%',
+                            ':hover': {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                            }
+                            }}
+                            onClick={adminHandler}
+                            >
+                            Admin
+                            </Button>
                                 <Button variant='contained' sx={{
                                     backgroundColor:'black',
                                     color:'rgb(253,204,3)',

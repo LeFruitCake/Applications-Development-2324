@@ -11,66 +11,69 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Admin from './Pages/Admin';
 import TaskPage from './Pages/TaskPage';
+import { UserProvider } from './ContextProvider/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
+      <UserProvider>
+        <Routes>
 
 
-        <Route
-          element={<Dashboard/>}
-          path="/"
-        >
           <Route
-            path='home'
-            element={<Home/>}
+            element={<Dashboard/>}
+            path="/"
+          >
+            <Route
+              path='home'
+              element={<Home/>}
+            />
+
+            <Route
+              element={<Admin/>}
+              path='admin'
+            />
+
+            <Route
+              path='companyProfile'
+              element={<CompanyProfile/>}
+            />
+            <Route
+              element={<TaskPage/>}
+              path='/taskpage'/>
+          </Route>
+
+
+          <Route
+            element={<h1>Yummy 1</h1>}
+            path='/:teamID'
           />
 
+
           <Route
-            element={<Admin/>}
-            path='admin'
+            element={<Login/>}
+            path='/login'
+          >
+
+          </Route>
+
+          <Route
+            element={<Register/>}
+            path='/register'
+          >
+
+          </Route>
+
+
+
+
+          <Route
+            element={<Page404/>}
+            path="*"
           />
-
-          <Route
-            path='companyProfile'
-            element={<CompanyProfile/>}
-          />
-          <Route
-            element={<TaskPage/>}
-            path='/taskpage'/>
-        </Route>
-
-
-        <Route
-          element={<h1>Yummy 1</h1>}
-          path='/:teamID'
-        />
-
-
-        <Route
-          element={<Login/>}
-          path='/login'
-        >
-
-        </Route>
-
-        <Route
-          element={<Register/>}
-          path='/register'
-        >
-        
-        </Route>
-
-        
-
-
-        <Route
-          element={<Page404/>}
-          path="*"
-        />
-      </Routes>
+          </Routes>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

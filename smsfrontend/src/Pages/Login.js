@@ -10,8 +10,7 @@ const Login = () => {
     const [flag,setFlag] = useState(false);
 
     useEffect(() => {
-        console.log(localStorage.getItem("loginStatus"))
-        if(JSON.parse(localStorage.getItem("loginStatus")) === true){
+        if(JSON.parse(localStorage.getItem("loginStatus"))){
             navigate("/home");
         }
     }, [navigate]);
@@ -23,8 +22,8 @@ const Login = () => {
         })
         .then(response => {
             if(response.status === 200){
-                console.log(response)
-                localStorage.setItem("loginStatus",true);
+                localStorage.setItem("userID",response.data.id)
+                localStorage.setItem("loginStatus",true)
                 navigate("/home")
             }else{
                 setFlag(true);

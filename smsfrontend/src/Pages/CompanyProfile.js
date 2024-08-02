@@ -6,12 +6,14 @@ import ProgressBar from '../Components/ProgressBar';
 import CreateTaskModal from '../Components/CreateTaskModal';
 import EditTask from '../Components/EditTask';
 import DeleteTask from '../Components/DeleteTask';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 import axios from 'axios';
+import { UserContext } from '../ContextProvider/UserContext';
 
 const CompanyProfile = () => {
     const location = useLocation()
+    const {user} = useContext(UserContext);
     const navigate = useNavigate()
     const company = location.state.company
     const [reloader,setReloader] = useState(false);
@@ -58,7 +60,11 @@ const CompanyProfile = () => {
                                 <Typography id="activeTaskLabel" sx={{fontWeight:'bold'}}>Active Tasks</Typography>
                             </Grid>
                             <Grid item xs={6} md={6} sx={{display:'flex', justifyContent:'end'}}>
-                                <CreateTaskModal id={company.company.id} reloader={reloader} setReloader={setReloader}/>
+                                {user.accessType === "Admin" || user.accessType === "Head Admin"?
+                                    <CreateTaskModal id={company.company.id} reloader={reloader} setReloader={setReloader}/>
+                                    :
+                                    <></>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -70,13 +76,25 @@ const CompanyProfile = () => {
                                         <Box key={key} sx={{position:'relative',borderBottom:'solid 1px silver', padding:'10px', '&:hover':{backgroundColor:'rgba(0,0,0,0.1)', '&:hover .dueDate':{display:'none'},'&:hover .actions':{display:'flex'}}}}>
                                             <Grid container>
                                                 <Grid item xs={12} md={8} >
-                                                    <Link
+                                                    {user.accessType === "Admin" || user.accessType == "Head Admin" || user.company === company.company.name?
+                                                        <Link
                                                         style={{textDecoration:'none', color:'inherit',position:'relative',zIndex:0}}
                                                         to={{
                                                             pathname:'/taskpage',
                                                         }}
                                                         state={{task}}
                                                     >
+                                                            <Box sx={{padding:'20px', display:'flex', flexDirection:'column', gap:'10px'}}>
+                                                                <Typography variant='h5' sx={{fontWeight:'bold'}}>{task.title}</Typography>
+                                                                <ProgressBar value={task.progress}/>
+                                                                {task.progress === 0?
+                                                                    <Typography variant='caption' sx={{fontWeight:'bold'}}>No progress yet</Typography>
+                                                                :
+                                                                    <Typography variant='caption' sx={{fontWeight:'bold'}}>{task.progress}% complete</Typography>
+                                                                }
+                                                            </Box>
+                                                        </Link>
+                                                        :
                                                         <Box sx={{padding:'20px', display:'flex', flexDirection:'column', gap:'10px'}}>
                                                             <Typography variant='h5' sx={{fontWeight:'bold'}}>{task.title}</Typography>
                                                             <ProgressBar value={task.progress}/>
@@ -86,16 +104,28 @@ const CompanyProfile = () => {
                                                                 <Typography variant='caption' sx={{fontWeight:'bold'}}>{task.progress}% complete</Typography>
                                                             }
                                                         </Box>
-                                                    </Link>
+                                                    }
                                                 </Grid>
                                                 <Grid item xs={12} md={4} sx={{display:'flex',justifyContent:'end',alignItems:'center'}}>
-                                                    <Typography className='dueDate' variant='h6' sx={{fontFamily:'poppins',fontWeight:'bold'}}>
-                                                        {new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(new Date(task.due))}
-                                                    </Typography>
-                                                    <Stack direction={'row'} gap={1} className='actions' sx={{display:'none'}}>
-                                                        <EditTask task={task} reloader={reloader} setReloader={setReloader} />
-                                                        <DeleteTask id={task.id} reloader={reloader} setReloader={setReloader}/>
-                                                    </Stack>
+                                                    
+                                                    {user.accessType === "Admin" || user.accessType == "Head Admin" || user.company === company.company.name?
+                                                        <>
+                                                            <Typography className='dueDate' variant='h6' sx={{fontFamily:'poppins',fontWeight:'bold'}}>
+                                                                {new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(new Date(task.due))}
+                                                            </Typography>
+                                                            {user.accessType === "Admin" || user.accessType === "Head Admin"?
+                                                                <Stack direction={'row'} gap={1} className='actions' sx={{display:'none'}}>
+                                                                    <EditTask task={task} reloader={reloader} setReloader={setReloader} />
+                                                                    <DeleteTask id={task.id} reloader={reloader} setReloader={setReloader}/>
+                                                                </Stack>
+                                                                :
+                                                                <></>
+                                                            }
+                                                        </>
+                                                        :
+                                                        <></>
+                                                    }
+                                                    
                                                 </Grid>
                                             </Grid>
                                         </Box>
