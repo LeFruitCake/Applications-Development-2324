@@ -99,9 +99,9 @@ const CompanyProfile = () => {
                                                 <Box key={key} sx={{position:'relative',borderBottom:'solid 1px silver', padding:'10px', '&:hover':{backgroundColor:'rgba(0,0,0,0.1)', '&:hover .dueDate':{display:'none'},'&:hover .actions':{display:'flex'}}}}>
                                                     <Grid container>
                                                         <Grid item xs={12} md={8} >
-                                                            {user.accessType === "Admin" || user.accessType == "Head Admin" || user.company === company.name?
+                                                            {user.accessType === "Admin" || user.accessType == "Head Admin" || user.companyID === company.id?
                                                                 <Link
-                                                                style={{textDecoration:'none', color:'inherit',position:'relative',zIndex:0}}
+                                                                style={{textDecoration:'none', color:'inherit',position:'relative',zIndex:0, wordWrap:'break-word'}}
                                                                 to={{
                                                                     pathname:`/taskpage/${task.id}`,
                                                                 }}
@@ -130,7 +130,7 @@ const CompanyProfile = () => {
                                                         </Grid>
                                                         <Grid item xs={12} md={4} sx={{display:'flex',justifyContent:'end',alignItems:'center'}}>
                                                             
-                                                            {user.accessType === "Admin" || user.accessType == "Head Admin" || user.company === company.name?
+                                                            {user.accessType === "Admin" || user.accessType == "Head Admin" || user.companyID === company.id?
                                                                 <>
                                                                     <Typography className='dueDate' variant='h6' sx={{fontFamily:'poppins',fontWeight:'bold'}}>
                                                                         {new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(new Date(task.due))}

@@ -53,7 +53,7 @@ const TaskPage = () => {
           .catch(error => {
             console.log(error);
           });
-      }, []);
+      }, [taskID]);
 
     return (
         <>
@@ -66,7 +66,7 @@ const TaskPage = () => {
                   </IconButton>
               </Box>
               <Grid container width='70%' margin='0 auto' padding={2} sx={{backgroundColor:'rgba(0,0,0,0.05)', boxShadow:'0px 0px 5px 0.1px', borderRadius:'10px'}}>
-                  <Grid xs={12} item >
+                  <Grid xs={12} item sx={{wordWrap:'break-word'}}>
                       <Typography variant='h3' sx={{fontWeight:'bold'}}>{task.title}</Typography>
                   </Grid>
                   <Grid xs={12} item >

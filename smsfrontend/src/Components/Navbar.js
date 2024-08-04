@@ -1,9 +1,10 @@
-import { AppBar, Box, Button, Divider, IconButton, Popover, Stack, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import { AppBar, Box, Button, Divider, Grid, IconButton, Popover, Stack, Typography } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
 import WilLogo from '../static/images/WILLogo.png'
 import ProfileAvatar from './ProfileAvatar';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../ContextProvider/UserContext';
+import axios from 'axios';
 
 
 const Navbar = () => {
@@ -12,6 +13,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
+    const [notifications, setNotifications] = useState([]);
     const profileClickHandler = (event)=>{
         setAnchorEl(event.target);
     }
@@ -28,6 +30,33 @@ const Navbar = () => {
         profileClickHandlerExit();
         navigate('/admin')
     }
+    useEffect(() => {
+        console.log(user)
+        if (user.accessType === "Employee") {
+          axios.get(`http://localhost:8080/notifications/employee`, {
+            params: {
+              companyID: user.companyID,
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              setNotifications(response.data)
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+        if (user.accessType === "Admin" || user.accessType === "Head Admin") {
+          axios.get(`http://localhost:8080/notifications/admin`)
+            .then(response => {
+              console.log(response.data);
+              setNotifications(response.data)
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      }, [user]);
     
     return (
         <div style={{position:'relative',zIndex:1}}>
@@ -71,8 +100,35 @@ const Navbar = () => {
                                 horizontal: 'right',
                             }}
                             >
-                            <Box sx={{width:'350px'}}>
-                                Test
+                            <Box sx={{width:'350px', overflow:'auto', maxHeight:'250px'}}>
+                                <Stack gap={1}>
+                                    {notifications.slice().reverse().map((notification,id)=>(
+                                        <Link
+                                        style={{textDecoration:'none', color:'inherit',position:'relative',zIndex:0}}
+                                        to={{
+                                            pathname:`/taskpage/${notification.taskID}`,
+                                        }}
+                                        onClick={profileClickHandlerExit}
+                                        >
+                                            <Grid container sx={{marginTop:'5px', padding:'5px'}}>
+                                                <Grid item xs={3}  sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                                    {notification.photoURL?
+                                                    <img src={`/${notification.photoURL}`} alt='logo'/>
+                                                    :
+                                                    <ProfileAvatar size="60px"/>
+                                                    }
+                                                </Grid>
+                                                <Grid item xs={9} sx={{display:'flex', alignItems:'center', justifyContent:'start'}}>
+                                                    <Stack direction={"row"} sx={{maxWidth:'240px', overflow:'hidden'}}>
+                                                        <Typography sx={{fontWeight:'bold'}}>
+                                                            {notification.username} {notification.activity === 1? 'has loaded' : notification.activity === 2? 'has accepted' : notification.activity === 3? 'has rejected' : notification.activity === 4? 'has submitted a file for': 'has completed'} {notification.taskName}
+                                                        </Typography>
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        </Link>
+                                    ))}
+                                </Stack>
                             </Box>
                             <Divider sx={{margin:'10px'}}/>
                             <Stack direction={"column"} gap={1} margin={1}>
