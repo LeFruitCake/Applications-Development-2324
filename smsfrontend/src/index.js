@@ -36,12 +36,12 @@ root.render(
             />
 
             <Route
-              path='companyProfile'
+              path='companyProfile/:companyID'
               element={<CompanyProfile/>}
             />
             <Route
               element={<TaskPage/>}
-              path='/taskpage'/>
+              path='/taskpage/:taskID'/>
           </Route>
 
 

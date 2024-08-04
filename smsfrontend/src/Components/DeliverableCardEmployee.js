@@ -9,10 +9,11 @@ import '../static/css/DeliverableContainer.css';
 
 
 
-const DeliverableCardEmployee = ({deliverable}) => {
+const DeliverableCardEmployee = ({deliverable, userID}) => {
     const [submissions, setSubmissions] = useState([]);
     const [has_submission, setHas_submission] = useState(deliverable.has_submission);
-    const [is_approved, setIs_approved] = useState(deliverable.is_approved);
+    const is_approved = deliverable.is_approved;
+    const [fileElement,setFileElement] = useState();
     const handleSubmit = (event) => {
         event.preventDefault();
       
@@ -75,7 +76,7 @@ const DeliverableCardEmployee = ({deliverable}) => {
     return (
         <form onSubmit={handleSubmit}>
             <Grid container className='deliverableContainer'>
-                    <Grid item xs={8}>
+                      <Grid item xs={12} md={8}>
                         <Stack direction={"column"} gap={1}>
                             <Typography variant='h5'>{deliverable.title}</Typography>
                             {/* <Divider/> */}
@@ -89,17 +90,18 @@ const DeliverableCardEmployee = ({deliverable}) => {
                                 :
                                 <>
                                     <input type='number' value={deliverable.id} name='deliverableID' style={{display:'none'}}/>
-                                    <input type='file' multiple name='files'/>
+                                    <input type='number' value={userID} name='userID' style={{display:'none'}}/>
+                                    <input type='file' multiple name='files' onChange={(e)=>{setFileElement(e.target.value)}}/>
                                 </>
                             }
                         </Stack>
                     </Grid>
-                    <Grid item xs={4} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    <Grid item xs={12} md={4} textAlign='center' sx={{display:'flex', justifyContent:{xs:'start',md:'center'}, alignItems:'center', marginTop:'5px'}}>
                         {is_approved?
                             <Typography sx={{color:'green', fontWeight:'bold'}}>Approved</Typography>
                             :
                             !has_submission?
-                            <Button type='submit' variant='contained'>Submit</Button>
+                            <Button disabled={!(fileElement || submissions.length > 0)} type='submit' variant='contained'>Submit</Button>
                             :
                             <Button onClick={removeSubmission} type='button' variant='contained' color='error'>Unsubmit</Button>
                         }

@@ -23,7 +23,7 @@ const style = {
   overflow:'auto',
 };
 
-export default function CreateTaskModal({id, reloader, setReloader}) {
+export default function CreateTaskModal({id, reloader, setReloader, userID}) {
     const [visible,setVisible] = React.useState(false)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -126,6 +126,7 @@ export default function CreateTaskModal({id, reloader, setReloader}) {
                             <Button onClick={handleClose} variant='contained' sx={{backgroundColor:'silver', color:'black','&:hover':{backgroundColor:'rgba(0,0,0,0.5)'}}} type='button'>Close</Button>
                             <Button variant='contained' type='submit'>Submit</Button>
                         </Stack>
+                        <input type='number' name='userID' value={userID} style={{display:'none'}}/>
                     </Stack>
                 </form>
             </Box>
