@@ -1,53 +1,29 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react';
-import { companyContext } from '../Pages/Dashboard';
+import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import EditUserForm from './editUserForm';
 
 const SetUserAccess = () => {
-    const {companies} = useContext(companyContext);
+    
     const [users, setUsers] = useState([
-        {
-            'name':'Jandel Macabecha',
-            'pPhoto':'/2.png',
-            'accessType':'Guest',
-            'company':'None',
-        },
-        {
-            'name':'Angeline Damao',
-            'pPhoto':'/3.png',
-            'accessType':'Employee',
-            'company':'Codechum',
-        }
-        
     ]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/User/findAll")
+        .then((response)=>{
+            console.log(response.data)
+            setUsers(response.data);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }, []);
     return (
        <Grid container gap={3}>
             {users.map((user)=>(
                 <Grid item xs={12}>
-                    <Grid container>
-                        <Grid item xs={6} sx={{display:'flex', alignItems:'center'}}>
-                            <Stack direction={'row'} sx={{alignItems:'center'}} gap={3}>
-                                <img src={user.pPhoto} alt='pPhoto' style={{width:'100px', height:'100px', borderRadius:'50%'}}/>
-                                <Typography variant='button' sx={{fontWeight:'bold'}}>{user.name}</Typography>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                            <Stack direction={'row'} gap={3} >
-                                <select name='aType' defaultValue={user.accessType}>
-                                    <option value="Guest">Guest</option>
-                                    <option value="Employee">Employee</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Head Admin">Head Admin</option>
-                                </select>
-                                <select defaultValue={user.company}>
-                                    {companies.map((company)=>(
-                                        <option value={company.companyName}>{company.companyName}</option>
-                                    ))}
-                                    <option value="None" selected>None</option>
-                                </select>
-                                <Button color='warning' variant='contained'>Save</Button>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <EditUserForm user={user}/>
                 </Grid>
             ))}
        </Grid> 
