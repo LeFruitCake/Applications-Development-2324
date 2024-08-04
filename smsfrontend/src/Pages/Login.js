@@ -6,7 +6,6 @@ import axios from 'axios';
 
 const Login = () => {
     const navigate = useNavigate();
-
     const [flag,setFlag] = useState(false);
 
     useEffect(() => {

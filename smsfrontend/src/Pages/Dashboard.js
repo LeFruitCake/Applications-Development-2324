@@ -31,7 +31,6 @@ const Dashboard = () => {
             }
         })
         .then(response=>{
-            console.log(response)
             setUser(response.data);
         })
         .catch(e=>{
@@ -40,7 +39,7 @@ const Dashboard = () => {
     }, [navigate, location]);
     return (
         <div style={{height:'100vh',display:'flex',flexFlow:'column',flex:'1 1 auto'}}>
-            <UserContext.Provider value={{user}}>
+            <UserContext.Provider value={{user, setUser}}>
                 <companyContext.Provider value={{companies, setCompanies}}>
                     <Navbar/>
                     <Outlet/>

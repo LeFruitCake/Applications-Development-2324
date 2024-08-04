@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(localStorage.getItem("loginStatus"))
         if(!JSON.parse(localStorage.getItem("loginStatus"))){
             navigate("/login");
         }

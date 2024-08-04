@@ -35,9 +35,6 @@ const EditTask = ({task,reloader,setReloader}) => {
     const formattedDueDate = `${dueDate.getFullYear()}-${String(dueDate.getMonth() + 1).padStart(2, '0')}-${String(dueDate.getDate()).padStart(2, '0')}`;
     const today = new Date();
     const minDate = today.toLocaleDateString('en-CA');
-    
-    console.log(task)
-
     const handleSubmit = (event)=>{
         event.preventDefault();
         axios.post("http://localhost:8080/StartupProfile/editTask",event.target)

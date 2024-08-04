@@ -31,6 +31,7 @@ export default function CreateTaskModal({id, reloader, setReloader}) {
     const [deliverables,setDeliverables] = React.useState([]);
     const today = new Date();
     const minDate = today.toLocaleDateString('en-CA');
+    const [flag,setFlag] = React.useState(false);
 
     const addDeliverableHandler = ()=>{
         setVisible(!visible);
@@ -52,28 +53,34 @@ export default function CreateTaskModal({id, reloader, setReloader}) {
     }
     
     const handleSubmit = (event) => {
-        const form = document.getElementById("myForm");
+        
         event.preventDefault(); // prevent default form submission
-        console.log(event.target);
-        const formData = new FormData(event.target);
-        axios.post('http://localhost:8080/StartupProfile/createTask', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-         .then((response) => {
-            if(response.status === 200){
-                form.reset();
-                setDeliverables([]);
-                handleClose();
-                setReloader(!reloader);
-            }else{
-            }
-            console.log(response.data);
-          })
-         .catch((error) => {
-            console.error(error);
-          });
+        
+        if(deliverables.length === 0){
+            setVisible(true)
+            setFlag(true)
+        }else{
+            const form = document.getElementById("myForm");
+            const formData = new FormData(event.target);
+            axios.post('http://localhost:8080/StartupProfile/createTask', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              })
+               .then((response) => {
+                  if(response.status === 200){
+                      form.reset();
+                      setDeliverables([]);
+                      handleClose();
+                      setReloader(!reloader);
+                  }else{
+                  }
+                  console.log(response.data);
+                })
+               .catch((error) => {
+                  console.error(error);
+                });
+        }
     };
 
     return (
@@ -98,7 +105,7 @@ export default function CreateTaskModal({id, reloader, setReloader}) {
                             <Typography>Deliverables</Typography>
                             <IconButton onClick={addDeliverableHandler}><AddCircleIcon/></IconButton>
                         </Box>
-                        <TextField id='deliverableTF' className='inputTextField' sx={{display:visible?'flex':'none', width:'100%'}}></TextField>
+                        <TextField error={flag} helperText={"Task must contain atleast one deliverable."} id='deliverableTF' className='inputTextField' onClick={()=>{setFlag(false)}} sx={{display:visible?'flex':'none', width:'100%'}}></TextField>
                         <Stack direction={'row'} gap={2} sx={{display:visible?'flex':'none', justifyContent:'end'}}>
                             <Button onClick={addDeliverableHandler} size='small' variant='contained' sx={{backgroundColor:'red','&:hover':{backgroundColor:'rgba(255,0,0,0.8)'}}}>Cancel</Button>
                             <Button onClick={saveDeliverable} size='small' variant='contained'>Save</Button>
